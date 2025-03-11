@@ -47,8 +47,8 @@ class Converter():
 
         #button list (button text, Bg Colour, Command, Row, Column)
         button_details_list = [
-            ["To Celsius", "#990099", "lamda:self.check_temp(c.ABS_ZERO_FAHRENHEIT)", 0, 0],
-            ["To Fahrenheit", "#009900", "lamda:self.check_temp(c.ABS_ZERO_CELSIUS)", 0, 1], 
+            ["To Celsius", "#990099", lambda:self.check_temp(c.ABS_ZERO_FAHRENHEIT), 0, 0],
+            ["To Fahrenheit", "#009900", lambda:self.check_temp(c.ABS_ZERO_CELSIUS), 0, 1], 
             ["Help / Info", "#CC6600", "", 1, 0],
             ["History / Export ", "#004C99", "", 1, 1]
         ]
