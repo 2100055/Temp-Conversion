@@ -37,9 +37,9 @@ class Converter():
         self.temp_entry.grid(row=2, padx=10, pady=10)
 
         error = "Please enter a number"
-        self.temp_error = Label(self.temp_frame, text=error,
-                                fg="#9C0000")
-        self.temp_error.grid(row=3)
+        self.answer_error = Label(self.temp_frame, text=error,
+                                fg="#004C99", font=("Arial", "14", "bold"))
+        self.answer_error.grid(row=3)
 
         #Conversion, help and history / export buttons
         self.button_frame = Frame(self.temp_frame)
@@ -69,21 +69,42 @@ class Converter():
         self.to_history_button=self.button_ref_list[3].config(state=DISABLED)
 
     def check_temp(self,min_temp):
-        print("Min Temp: ", min_temp)
+        """
+        Checks temperature is valid and either invokes calculation 
+        function or shows custom error
+        """
 
         #Retrieve temperature to be converted
         to_convert = self.temp_entry.get()
-        print("to convert", to_convert)
 
+        # Resets label and entry box (if we hasd an error)
+        self.answer_error.config(fg="#004C99")
+        self.temp_entry.config(bg="#FFFFFF")
+
+        #  checks that amount to be converted is a numer above absolute zero
         try:
             to_convert = float(to_convert)
             if to_convert >= min_temp:
-                 self.temp_error.config(text="You are OK")
+                 error = ""
+                 self.convert(min_temp)
             else:
-                self.temp_error.config(text="Too Low")
-
+                error = "Too Low"
+            
         except ValueError:
-            self.temp_error.config(text="Please enter a number")
+            error = "Please enter a number"
+
+            # display the error if necessasry
+            if error != "":
+                self.answer_error.config(text=error, fg="#9C0000")
+                self.temp_entry.config(bg="#F4CCCC")
+    
+    
+    def convert(self, min_temp):
+        
+        if min_temp == c.ABS_ZERO_CELSIUS:
+            self.answer_error.config(text="Converting to F")
+        else:
+            self.answer_error.config(text="Converting to C")
 
 
 
